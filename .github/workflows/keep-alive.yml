@@ -1,0 +1,23 @@
+# Keeps the hosted Supabase Free project's 7-day inactivity pause from ever triggering
+# before a demo (build plan §2.1). Runs well inside GitHub's free Actions allowance.
+# Requires DEPLOYED_URL to be set as a repository variable once the app has a real
+# deployment (Settings -> Secrets and variables -> Actions -> Variables). Until then this
+# workflow simply has nothing to do and exits cleanly — it is not needed for local dev.
+name: Keep-alive ping
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # daily, 06:00 UTC — six-day buffer before the 7-day pause
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping /api/health
+        run: |
+          if [ -z "${{ vars.DEPLOYED_URL }}" ]; then
+            echo "DEPLOYED_URL repository variable not set yet — nothing to ping."
+            exit 0
+          fi
+          curl -sf "${{ vars.DEPLOYED_URL }}/api/health"
