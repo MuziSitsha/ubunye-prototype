@@ -100,7 +100,7 @@ export default async function VenturePage({ params }: { params: Promise<{ ventur
           <JourneyLink href={`/venture/${ventureId}/help`} title="Ask For Help" description="Get support on any part of the journey" />
         </div>
 
-        {venture.currentStage === "funding_ready" || isLaunched ? (
+        {venture.currentStage === "launch" || isLaunched ? (
           <LinkButton href={`/venture/${ventureId}/launch`} size="lg" fullWidth>
             {isLaunched ? "View Launch Status" : "Ready To Launch"}
           </LinkButton>

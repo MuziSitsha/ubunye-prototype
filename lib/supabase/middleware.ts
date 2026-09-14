@@ -2,7 +2,9 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import type { Database } from "@/types/database";
 
-const PUBLIC_PATHS = ["/", "/login", "/register", "/auth"];
+// /demo is public on purpose (spec §31): a presenter needs to reach it — and load a
+// persona from it — before any session exists.
+const PUBLIC_PATHS = ["/", "/login", "/register", "/auth", "/demo"];
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });

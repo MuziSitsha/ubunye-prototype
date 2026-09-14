@@ -54,7 +54,7 @@ usable through the UI"), **Built** (code complete, pending a manual pass), **Par
 | RLS | Done | `supabase/migrations/20260914090100_rls_policies.sql` |
 | Prototype data disclaimer | Done | `components/ui/Disclaimer.tsx`, rendered on `/people`, `/opportunity`, `/venture/[id]/funding` |
 | Human-readable error handling | Done | `lib/errors.ts`, `lib/api.ts` |
-| Mobile-first responsive layout | Built | Tailwind mobile-first classes throughout; needs a manual pass at narrow widths in a real browser. |
+| Mobile-first responsive layout | Done | Verified at 390px width across the full journey — no horizontal overflow, bottom nav renders correctly. |
 | No API keys client-side | Done | `ANTHROPIC_API_KEY` / `SUPABASE_SERVICE_ROLE_KEY` are only read in server-only modules (`services/aiService.ts` `ClaudeAIService`, `lib/supabase/admin.ts`). |
 
 ## Explicitly out of scope (spec §5)
@@ -64,13 +64,29 @@ integration, identity verification/KYC, live messaging/video, production ML, nat
 mobile apps. Where the journey needs these conceptually, the UI provides a simulated
 interaction instead (spec §5, §25).
 
+## Verified end-to-end in a real browser (spec §48)
+
+Driven headlessly at 390px width through the full journey — registration/demo-persona
+login, onboarding (skills interpretation, profile, resources), people matching,
+opportunity recommendation, team formation, venture workspace, business builder, all four
+readiness-checklist toggles, all three stage-advance transitions, and launch — ending on
+the "Congratulations" screen, with zero console/page/HTTP errors throughout. Three real
+bugs were found this way and are fixed:
+
+1. The sticky "Find Our Opportunity" bar on `/people` overlapped the last candidate
+   card's action button — fixed with a proper footer bar + bottom padding.
+2. `/demo` was not in the middleware's public-path list, so an unauthenticated presenter
+   was bounced to `/login` before ever seeing the panel — fixed in
+   `lib/supabase/middleware.ts`.
+3. The "Ready To Launch" button's visibility check compared `currentStage` against
+   `"funding_ready"`, but completing that stage immediately advances `currentStage` to
+   `"launch"` — the button could never appear through normal use. Fixed in
+   `app/(app)/venture/[ventureId]/page.tsx`.
+
 ## Outstanding before a real stakeholder demo
 
-1. **Manual browser pass** — every route above is `Built`/`Done` from a compile and
-   service-logic standpoint; a full click-through in an actual browser at mobile width
-   has not yet been recorded in this file. Do this before the first external demo.
-2. Ownership handover per the build & delivery plan §1 (Ubunye-owned Supabase/Vercel/
+1. Ownership handover per the build & delivery plan §1 (Ubunye-owned Supabase/Vercel/
    domain accounts) — infrastructure, not code; this repo is indifferent to which project
    its env vars point at (docs/decisions.md D10).
-3. Before a public deployment: move to Vercel Pro and set `ENABLE_DEMO_PANEL=false`
+2. Before a public deployment: move to Vercel Pro and set `ENABLE_DEMO_PANEL=false`
    (build plan §2.2, docs/decisions.md D4).
