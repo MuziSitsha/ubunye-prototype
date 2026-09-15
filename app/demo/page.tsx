@@ -159,9 +159,9 @@ export default function DemoPanelPage() {
             </div>
 
             <div className="mt-3 flex flex-wrap gap-3 text-xs">
-              <Link href="/people" className="font-medium text-terracotta">Trigger people match →</Link>
+              <Link href="/people" className="font-medium text-gold">Trigger people match →</Link>
               {venture && (
-                <Link href={`/venture/${venture.id}`} className="font-medium text-terracotta">Open venture →</Link>
+                <Link href={`/venture/${venture.id}`} className="font-medium text-gold">Open venture →</Link>
               )}
             </div>
           </Card>

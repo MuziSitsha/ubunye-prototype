@@ -47,7 +47,7 @@ export default async function OpportunityPage({
         <Card>
           <div className="flex items-start justify-between gap-3">
             <h2 className="text-xl font-bold text-ink">{opportunity.name}</h2>
-            <span className="shrink-0 rounded-full bg-terracotta px-3 py-1 text-sm font-bold text-white">
+            <span className="shrink-0 rounded-full bg-gold px-3 py-1 text-sm font-bold text-on-gold">
               {matchPercent}% Match
             </span>
           </div>

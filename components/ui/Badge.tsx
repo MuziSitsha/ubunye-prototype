@@ -1,12 +1,11 @@
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
 
-type Tone = "terracotta" | "green" | "gold" | "neutral" | "danger";
+type Tone = "gold" | "green" | "neutral" | "danger";
 
 const TONE_CLASSES: Record<Tone, string> = {
-  terracotta: "bg-terracotta-light text-terracotta-dark",
+  gold: "bg-gold-light text-gold-dark",
   green: "bg-green-light text-green",
-  gold: "bg-gold-light text-gold",
   neutral: "bg-sand text-ink-muted",
   danger: "bg-danger-light text-danger",
 };

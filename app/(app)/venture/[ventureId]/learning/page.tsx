@@ -32,7 +32,7 @@ export default async function LearningPage({ params }: { params: Promise<{ ventu
             <Card key={course.id}>
               <div className="flex items-start justify-between gap-3">
                 <h3 className="text-sm font-semibold text-ink">{course.title}</h3>
-                {course.skillName && <Badge tone="terracotta">{course.skillName}</Badge>}
+                {course.skillName && <Badge tone="gold">{course.skillName}</Badge>}
               </div>
               <p className="mt-2 text-sm text-ink-muted">
                 <span className="font-medium text-ink">Reason: </span>

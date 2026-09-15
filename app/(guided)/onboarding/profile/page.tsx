@@ -186,7 +186,7 @@ function RadioTile({
       onClick={onSelect}
       className={`rounded-xl border px-3.5 py-2.5 text-left text-sm font-medium transition-colors ${
         fullWidth ? "w-full" : ""
-      } ${selected ? "border-terracotta bg-terracotta-light text-terracotta-dark" : "border-border bg-surface text-ink hover:bg-sand"}`}
+      } ${selected ? "border-gold bg-gold-light text-gold-dark" : "border-border bg-surface text-ink hover:bg-sand"}`}
     >
       {label}
     </button>

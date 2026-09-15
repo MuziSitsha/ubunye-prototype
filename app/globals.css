@@ -1,43 +1,44 @@
 @import "tailwindcss";
 
 /*
-  Ubunye visual direction (spec §38): optimistic, empowering, African, modern,
-  accessible, human, simple, non-corporate, mobile-first. Warm neutrals with a
-  terracotta/gold/green palette rather than a cold enterprise-blue dashboard look.
+  Ubunye visual direction: white, gold and black — a clean, professional palette.
+  Near-black text on a near-white ground, with a single gold accent for brand,
+  interactive elements and emphasis. Green/red are kept only as small semantic
+  signals (success/danger), not as brand colours.
 */
 :root {
-  --cream: #fbf6ee;
+  --cream: #fcfcfa;
   --surface: #ffffff;
-  --sand: #f3e9d7;
-  --ink: #241c15;
-  --ink-muted: #6b5f4f;
-  --border: #e7dcc8;
-  --terracotta: #c1552c;
-  --terracotta-dark: #9a431f;
-  --terracotta-light: #f6e2d6;
+  --sand: #f4f0e2;
+  --ink: #131211;
+  --ink-muted: #5c5850;
+  --border: #e6e1d2;
+  --gold: #b8860b;
+  --gold-dark: #8c6508;
+  --gold-light: #faf0d2;
+  /* Text/icon colour placed on top of a gold background. Deliberately fixed
+     (not theme-flipping like --ink) — gold stays a mid-bright colour in both
+     light and dark mode, so it always needs dark text on top. */
+  --on-gold: #171410;
   --green: #16694a;
   --green-light: #e3f2ea;
-  --gold: #b97e14;
-  --gold-light: #faf0d9;
   --danger: #b3261e;
   --danger-light: #fbe9e7;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --cream: #1b1610;
-    --surface: #241d15;
-    --sand: #2c2418;
-    --ink: #f3ead9;
-    --ink-muted: #b9ab93;
-    --border: #3a2f20;
-    --terracotta: #e07a4f;
-    --terracotta-dark: #f19468;
-    --terracotta-light: #3a2318;
+    --cream: #0e0d0c;
+    --surface: #1a1815;
+    --sand: #262219;
+    --ink: #f5f1e8;
+    --ink-muted: #b8ae9c;
+    --border: #332e22;
+    --gold: #d9ac3d;
+    --gold-dark: #f0c158;
+    --gold-light: #332711;
     --green: #4cae86;
     --green-light: #1b3327;
-    --gold: #e0ab4f;
-    --gold-light: #332811;
     --danger: #e5877e;
     --danger-light: #3a201d;
   }
@@ -50,13 +51,12 @@
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
   --color-border: var(--border);
-  --color-terracotta: var(--terracotta);
-  --color-terracotta-dark: var(--terracotta-dark);
-  --color-terracotta-light: var(--terracotta-light);
+  --color-gold: var(--gold);
+  --color-gold-dark: var(--gold-dark);
+  --color-gold-light: var(--gold-light);
+  --color-on-gold: var(--on-gold);
   --color-green: var(--green);
   --color-green-light: var(--green-light);
-  --color-gold: var(--gold);
-  --color-gold-light: var(--gold-light);
   --color-danger: var(--danger);
   --color-danger-light: var(--danger-light);
   --font-sans: var(--font-geist-sans);

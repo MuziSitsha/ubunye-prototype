@@ -56,7 +56,7 @@ export default async function DashboardPage() {
         <Card>
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-ink-muted">My Profile</h2>
-            <Link href="/profile" className="text-xs font-medium text-terracotta">
+            <Link href="/profile" className="text-xs font-medium text-gold">
               Edit
             </Link>
           </div>
@@ -89,7 +89,7 @@ export default async function DashboardPage() {
             <Card>
               <div className="flex items-center justify-between">
                 <h2 className="text-sm font-semibold uppercase tracking-wide text-ink-muted">Business Journey</h2>
-                <Link href={`/venture/${venture.id}`} className="text-xs font-medium text-terracotta">
+                <Link href={`/venture/${venture.id}`} className="text-xs font-medium text-gold">
                   Open
                 </Link>
               </div>

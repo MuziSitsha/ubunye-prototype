@@ -44,7 +44,7 @@ export function PeopleList({ people }: { people: PersonCard[] }) {
           const isSelected = selected.has(person.userId);
           return (
             <li key={person.userId}>
-              <Card className={isSelected ? "border-terracotta ring-2 ring-terracotta/20" : ""}>
+              <Card className={isSelected ? "border-gold ring-2 ring-gold/20" : ""}>
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <h3 className="font-semibold text-ink">

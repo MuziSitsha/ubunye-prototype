@@ -10,7 +10,7 @@ export function ProgressBar({ percentage, label }: { percentage: number; label?:
       )}
       <div className="h-2.5 w-full overflow-hidden rounded-full bg-sand">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-terracotta to-gold transition-all"
+          className="h-full rounded-full bg-gold transition-all"
           style={{ width: `${clamped}%` }}
           role="progressbar"
           aria-valuenow={clamped}

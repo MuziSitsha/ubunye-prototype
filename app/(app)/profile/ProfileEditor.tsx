@@ -184,7 +184,7 @@ export function ProfileEditor({
                 type="button"
                 onClick={() => toggleResource(name)}
                 className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
-                  active ? "border-terracotta bg-terracotta-light text-terracotta-dark" : "border-border bg-surface text-ink hover:bg-sand"
+                  active ? "border-gold bg-gold-light text-gold-dark" : "border-border bg-surface text-ink hover:bg-sand"
                 }`}
               >
                 {name}

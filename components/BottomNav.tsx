@@ -27,7 +27,7 @@ export function BottomNav() {
               href={href}
               className={clsx(
                 "flex flex-1 flex-col items-center gap-1 py-2.5 text-xs font-medium",
-                active ? "text-terracotta" : "text-ink-muted"
+                active ? "text-gold" : "text-ink-muted"
               )}
             >
               <Icon active={active} />

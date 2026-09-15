@@ -68,7 +68,7 @@ export default function ResourcesPage() {
                 type="button"
                 onClick={() => toggle(name)}
                 className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
-                  active ? "border-terracotta bg-terracotta-light text-terracotta-dark" : "border-border bg-surface text-ink hover:bg-sand"
+                  active ? "border-gold bg-gold-light text-gold-dark" : "border-border bg-surface text-ink hover:bg-sand"
                 }`}
               >
                 {name}

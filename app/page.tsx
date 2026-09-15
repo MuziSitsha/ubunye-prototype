@@ -6,7 +6,7 @@ export default function LandingPage() {
     <main className="mx-auto flex min-h-dvh w-full max-w-xl md:max-w-2xl lg:max-w-4xl flex-col justify-between px-6 py-10">
       <div>
         <div className="mb-10 flex items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-terracotta text-sm font-bold text-white">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gold text-sm font-bold text-on-gold">
             U
           </span>
           <span className="text-lg font-semibold text-ink">Ubunye</span>
@@ -31,7 +31,7 @@ export default function LandingPage() {
             "Build the business together",
           ].map((step, i) => (
             <li key={step} className="flex items-start gap-3">
-              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-light text-xs font-semibold text-green">
+              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold-light text-xs font-semibold text-gold-dark">
                 {i + 1}
               </span>
               <span>{step}</span>

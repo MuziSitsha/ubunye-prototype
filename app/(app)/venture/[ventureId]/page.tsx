@@ -60,7 +60,7 @@ export default async function VenturePage({ params }: { params: Promise<{ ventur
                       status === "complete"
                         ? "bg-green text-white"
                         : status === "active"
-                          ? "bg-terracotta text-white"
+                          ? "bg-gold text-on-gold"
                           : "bg-sand text-ink-muted"
                     }`}
                   >

@@ -89,7 +89,7 @@ export default function LoginPage() {
 
         <p className="mt-6 text-center text-sm text-ink-muted">
           New to Ubunye?{" "}
-          <Link href="/register" className="font-medium text-terracotta">
+          <Link href="/register" className="font-medium text-gold">
             Create an account
           </Link>
         </p>
