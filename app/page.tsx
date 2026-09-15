@@ -1,23 +1,25 @@
 import { LinkButton } from "@/components/ui/Button";
+import { BrandMark } from "@/components/ui/BrandMark";
 
 // UBY-001 — Landing Screen (spec §9)
 export default function LandingPage() {
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-xl md:max-w-2xl lg:max-w-4xl flex-col justify-between px-6 py-10">
       <div>
-        <div className="mb-10 flex items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gold text-sm font-bold text-on-gold">
-            U
-          </span>
-          <span className="text-lg font-semibold text-ink">Ubunye</span>
+        <div className="mb-10 flex items-center gap-2.5">
+          <BrandMark size={34} />
+          <span className="text-lg font-semibold tracking-tight text-ink">Ubunye</span>
         </div>
 
-        <h1 className="text-3xl font-bold leading-tight text-ink sm:text-4xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+          No business idea required
+        </p>
+        <h1 className="mt-2 text-4xl font-bold leading-[1.1] tracking-tight text-ink sm:text-5xl">
           You don&apos;t need a business idea to start.
         </h1>
         <p className="mt-4 text-lg text-ink-muted">Tell us what you can do.</p>
 
-        <p className="mt-8 text-sm leading-relaxed text-ink-muted">
+        <p className="mt-6 max-w-md text-sm leading-relaxed text-ink-muted">
           Ubunye finds people whose abilities complement yours, matches you to a real
           opportunity, explains why, and helps your team build a business — one step at a
           time.
@@ -40,7 +42,7 @@ export default function LandingPage() {
         </ol>
       </div>
 
-      <div className="mt-10 space-y-3">
+      <div className="mt-10 space-y-3 border-t border-border pt-6">
         <LinkButton href="/register" size="lg" fullWidth>
           Get Started
         </LinkButton>
