@@ -13,7 +13,7 @@ AI only explains it.** See [`docs/architecture.md`](docs/architecture.md) §1 an
 
 Next.js (App Router) + TypeScript + Tailwind CSS + Supabase (Postgres, Auth) + Vitest.
 AI is abstracted behind `services/aiService.ts` — `MockAIService` (deterministic, default
-everywhere) or `ClaudeAIService` (behind `NEXT_PUBLIC_AI_MODE=claude`).
+everywhere) or `ClaudeAIService` (behind `AI_MODE=claude`).
 
 ## Getting started
 

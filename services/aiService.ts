@@ -1,7 +1,9 @@
 // AI service abstraction (spec §36). AI narrates; it never scores, ranks or decides
 // (docs/decisions.md D8). MockAIService is the default in every environment and needs
 // no network access at all — the whole Golden Demo works with it alone. ClaudeAIService
-// is a drop-in replacement selected by NEXT_PUBLIC_AI_MODE=claude, used only server-side.
+// is a drop-in replacement selected by AI_MODE=claude, used only server-side. Deliberately
+// NOT prefixed NEXT_PUBLIC_ — nothing client-side ever needs to know which mode is active,
+// so there's no reason to ship this value to the browser.
 
 import { formatList } from "@/lib/format";
 import type {
@@ -145,7 +147,7 @@ export class MockAIService implements AIService {
 /**
  * Calls the Claude API to phrase the same content MockAIService phrases deterministically.
  * Server-side only — never import this from a Client Component. Selected via
- * NEXT_PUBLIC_AI_MODE=claude (build plan §4, Build 6). Falls back to the deterministic
+ * AI_MODE=claude (build plan §4, Build 6). Falls back to the deterministic
  * mock output if the API call fails, so a flaky connection during a live demo degrades
  * gracefully instead of breaking the journey (spec §32, §50).
  */
@@ -222,6 +224,6 @@ let cachedService: AIService | null = null;
 export function getAIService(): AIService {
   if (cachedService) return cachedService;
   cachedService =
-    process.env.NEXT_PUBLIC_AI_MODE === "claude" ? new ClaudeAIService() : new MockAIService();
+    process.env.AI_MODE === "claude" ? new ClaudeAIService() : new MockAIService();
   return cachedService;
 }

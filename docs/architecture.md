@@ -94,7 +94,7 @@ interface AIService {
   cost, zero latency, zero flakiness. **Default in every environment.**
 - `ClaudeAIService` — calls the Claude API server-side only (`app/api/ai/*`
   route handlers; the API key never reaches the browser). Selected by
-  `NEXT_PUBLIC_AI_MODE=claude`. Never wired into the Golden Demo's default
+  `AI_MODE=claude`. Never wired into the Golden Demo's default
   path — see D8 and the build plan's §2's "mock as default, real service as a
   flag" guidance.
 

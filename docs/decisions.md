@@ -156,7 +156,7 @@ anywhere in seed data, copy, or fixtures until a real partnership exists.
 ## D8 — AI is narration, never decision
 
 Per spec §7 and §37: `AIService` (`MockAIService` by default,
-`ClaudeAIService` behind `NEXT_PUBLIC_AI_MODE=claude`) is called only to
+`ClaudeAIService` behind `AI_MODE=claude`) is called only to
 phrase explanations, interpret free-text skills into a structured shape, and
 draft prose summaries. It never returns a score, a ranking, a match decision,
 or a number that isn't already present in the structured recommendation
@@ -187,3 +187,22 @@ local Supabase stack (`supabase start`, Docker-based) using the same
 migrations and seed script that will run against the hosted project. Moving
 to the hosted Ubunye-owned project is a matter of pointing `.env.local` at it
 and running `supabase db push` — no code changes required.
+
+---
+
+## D11 — `AI_MODE`, not `NEXT_PUBLIC_AI_MODE`
+
+The spec's §57 kickoff instructions literally say `NEXT_PUBLIC_AI_MODE`, and
+the codebase originally matched that wording. Vercel's environment-variable
+UI flags any `NEXT_PUBLIC_` (or other framework-recognised public prefix) var
+as browser-exposed and asks for confirmation — a useful prompt to check
+whether that's actually needed here.
+
+It isn't. `AI_MODE` is read exactly once, in `services/aiService.ts`'s
+`getAIService()`, which only ever runs server-side (API routes, Server
+Components) — no Client Component reads it, and there's no UI that displays
+which AI mode is active. Renamed to a plain `AI_MODE` so it isn't inlined
+into the client bundle for no reason. Not a secret either way (its only
+values are `"mock"` / `"claude"`), so this is a tidiness fix, not a
+vulnerability fix — but there's no reason to expose it when nothing consumes
+it client-side.
