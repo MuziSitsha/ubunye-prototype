@@ -8,7 +8,7 @@ import type { ReactNode } from "react";
 export function TopBar({ title, subtitle, back, action }: { title: string; subtitle?: string; back?: string; action?: ReactNode }) {
   return (
     <header className="sticky top-0 z-10 border-b border-border bg-cream/95 px-4 py-3 backdrop-blur">
-      <div className="mx-auto flex max-w-xl items-center gap-3">
+      <div className="mx-auto flex max-w-xl md:max-w-2xl lg:max-w-4xl items-center gap-3">
         {back && (
           <Link
             href={back}

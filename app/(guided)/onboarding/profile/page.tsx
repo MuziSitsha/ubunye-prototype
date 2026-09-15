@@ -74,7 +74,7 @@ export default function AboutYouPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-xl flex-col">
+    <div className="mx-auto flex min-h-dvh w-full max-w-xl md:max-w-2xl lg:max-w-4xl flex-col">
       <TopBar title="About you" subtitle="Location and availability help us match you well" back="/onboarding/skills" />
       <main className="flex-1 px-6 py-6">
         <form onSubmit={handleSubmit} className="space-y-6">

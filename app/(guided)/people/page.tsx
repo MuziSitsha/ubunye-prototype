@@ -35,7 +35,7 @@ export default async function PeoplePage() {
   }));
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-xl flex-col">
+    <div className="mx-auto flex min-h-dvh w-full max-w-xl md:max-w-2xl lg:max-w-4xl flex-col">
       <TopBar title="People you could build with" subtitle="Pick 2 or 3 people to explore an opportunity with" back="/onboarding/complete" />
       <main className="flex-1 space-y-4 px-6 py-6">
         <Disclaimer text="These are the other people seeded into this demonstration — in production, Ubunye's real user base would populate this list." />

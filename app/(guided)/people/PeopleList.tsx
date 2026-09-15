@@ -39,7 +39,7 @@ export function PeopleList({ people }: { people: PersonCard[] }) {
 
   return (
     <div className="space-y-4 pb-28">
-      <ul className="space-y-3">
+      <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {people.map((person) => {
           const isSelected = selected.has(person.userId);
           return (
@@ -79,7 +79,7 @@ export function PeopleList({ people }: { people: PersonCard[] }) {
       </ul>
 
       <div className="fixed inset-x-0 bottom-0 z-10 border-t border-border bg-cream/95 px-6 py-3 backdrop-blur">
-        <div className="mx-auto max-w-xl">
+        <div className="mx-auto max-w-xl md:max-w-2xl lg:max-w-4xl">
           <Button size="lg" fullWidth disabled={selected.size === 0} onClick={handleContinue}>
             {`Find Our Opportunity${selected.size > 0 ? ` (${selected.size} selected)` : ""}`}
           </Button>

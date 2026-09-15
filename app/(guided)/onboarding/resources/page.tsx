@@ -56,7 +56,7 @@ export default function ResourcesPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-xl flex-col">
+    <div className="mx-auto flex min-h-dvh w-full max-w-xl md:max-w-2xl lg:max-w-4xl flex-col">
       <TopBar title="What do you have access to?" subtitle="Select everything that applies" back="/onboarding/profile" />
       <main className="flex-1 px-6 py-6">
         <div className="flex flex-wrap gap-2">

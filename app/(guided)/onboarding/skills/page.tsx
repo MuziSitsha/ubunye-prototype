@@ -74,7 +74,7 @@ export default function SkillsPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-xl flex-col">
+    <div className="mx-auto flex min-h-dvh w-full max-w-xl md:max-w-2xl lg:max-w-4xl flex-col">
       <TopBar title="What can you do?" subtitle="Tell Ubunye in your own words" back="/onboarding/welcome" />
       <main className="flex-1 space-y-6 px-6 py-6">
         {!interpreted && (

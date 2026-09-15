@@ -34,7 +34,7 @@ export default async function ProposedTeamPage({
   const teamName = `Team ${opportunity.name.split(" ").slice(0, 2).join(" ")}`;
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-xl flex-col">
+    <div className="mx-auto flex min-h-dvh w-full max-w-xl md:max-w-2xl lg:max-w-4xl flex-col">
       <TopBar title="Meet your potential team" back={`/opportunity?members=${memberUserIds.join(",")}`} />
       <main className="flex-1 space-y-5 px-6 py-6">
         <Card>

@@ -3,7 +3,7 @@ import { LinkButton } from "@/components/ui/Button";
 // UBY-001 — Landing Screen (spec §9)
 export default function LandingPage() {
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-xl flex-col justify-between px-6 py-10">
+    <main className="mx-auto flex min-h-dvh w-full max-w-xl md:max-w-2xl lg:max-w-4xl flex-col justify-between px-6 py-10">
       <div>
         <div className="mb-10 flex items-center gap-2">
           <span className="flex h-9 w-9 items-center justify-center rounded-full bg-terracotta text-sm font-bold text-white">

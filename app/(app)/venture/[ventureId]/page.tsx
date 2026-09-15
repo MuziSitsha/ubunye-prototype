@@ -93,7 +93,7 @@ export default async function VenturePage({ params }: { params: Promise<{ ventur
           </ul>
         </Card>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           <JourneyLink href={`/venture/${ventureId}/build`} title="Business Development" description="Concept, customer, operations, money" />
           <JourneyLink href={`/venture/${ventureId}/funding`} title="Funding & Readiness" description="Programmes and your readiness score" />
           <JourneyLink href={`/venture/${ventureId}/learning`} title="Skills Development" description="Courses to close your gaps" />

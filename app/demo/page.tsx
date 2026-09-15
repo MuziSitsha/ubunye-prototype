@@ -84,7 +84,7 @@ export default function DemoPanelPage() {
 
   if (!enabled && personas !== null) {
     return (
-      <div className="mx-auto max-w-xl px-6 py-10">
+      <div className="mx-auto max-w-xl md:max-w-2xl lg:max-w-4xl px-6 py-10">
         <TopBar title="Demo panel" back="/" />
         <p className="mt-6 rounded-xl bg-sand px-4 py-3 text-sm text-ink-muted">
           The demo panel isn&apos;t enabled on this deployment (ENABLE_DEMO_PANEL is not &quot;true&quot;). See
@@ -95,7 +95,7 @@ export default function DemoPanelPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-xl flex-col">
+    <div className="mx-auto flex min-h-dvh w-full max-w-xl md:max-w-2xl lg:max-w-4xl flex-col">
       <TopBar title="Demo control panel" back="/" />
       <main className="space-y-5 px-6 py-6">
         <Disclaimer text="This panel exists to reduce presentation risk during a live demo (spec §31). It is not part of the product a real user would see." />
@@ -106,7 +106,7 @@ export default function DemoPanelPage() {
         <Card>
           <h2 className="text-sm font-semibold text-ink">Load demo persona</h2>
           <p className="mt-1 text-xs text-ink-muted">Signs you in as one of the seeded Golden Demo personas (spec §32).</p>
-          <div className="mt-3 grid grid-cols-2 gap-2">
+          <div className="mt-3 grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
             {(personas ?? []).map((p) => (
               <button
                 key={p.id}

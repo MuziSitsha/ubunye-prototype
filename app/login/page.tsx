@@ -59,7 +59,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-xl flex-col">
+    <div className="mx-auto flex min-h-dvh w-full max-w-xl md:max-w-2xl lg:max-w-4xl flex-col">
       <TopBar title="Sign in" back="/" />
       <main className="flex-1 px-6 py-6">
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -99,7 +99,7 @@ export default function LoginPage() {
             <p className="mb-3 text-center text-xs font-medium uppercase tracking-wide text-ink-muted">
               Demo personas — Golden Demo (spec §32)
             </p>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
               {personas.map((p) => (
                 <button
                   key={p.id}

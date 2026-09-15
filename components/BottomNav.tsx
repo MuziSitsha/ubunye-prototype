@@ -18,7 +18,7 @@ export function BottomNav() {
 
   return (
     <nav className="sticky bottom-0 z-10 border-t border-border bg-surface pb-[env(safe-area-inset-bottom)]">
-      <div className="mx-auto flex max-w-xl items-stretch justify-between px-2">
+      <div className="mx-auto flex max-w-xl md:max-w-2xl lg:max-w-4xl items-stretch justify-between px-2">
         {ITEMS.map(({ href, label, icon: Icon }) => {
           const active = pathname === href || pathname.startsWith(`${href}/`);
           return (

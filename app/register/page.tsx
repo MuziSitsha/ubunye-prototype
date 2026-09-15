@@ -31,7 +31,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-xl flex-col">
+    <div className="mx-auto flex min-h-dvh w-full max-w-xl md:max-w-2xl lg:max-w-4xl flex-col">
       <TopBar title="Create your account" back="/" />
       <main className="flex-1 px-6 py-6">
         <form onSubmit={handleSubmit} className="space-y-4">

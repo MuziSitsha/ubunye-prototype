@@ -41,7 +41,7 @@ export default async function OpportunityPage({
   const teamParams = new URLSearchParams({ members: memberUserIds.join(","), opportunityId: opportunity.id });
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-xl flex-col">
+    <div className="mx-auto flex min-h-dvh w-full max-w-xl md:max-w-2xl lg:max-w-4xl flex-col">
       <TopBar title="We found something" back={`/people`} />
       <main className="flex-1 space-y-5 px-6 py-6">
         <Card>
@@ -69,7 +69,7 @@ export default async function OpportunityPage({
           <p className="mt-2 text-sm leading-relaxed text-ink-muted">{explanation}</p>
         </Card>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <SectionCard title="Your Team">
             <ul className="space-y-0.5 text-sm text-ink-muted">
               {memberProfiles.map((p) => (
