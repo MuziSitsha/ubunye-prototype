@@ -54,7 +54,7 @@ usable through the UI"), **Built** (code complete, pending a manual pass), **Par
 | RLS | Done | `supabase/migrations/20260914090100_rls_policies.sql` |
 | Prototype data disclaimer | Done | `components/ui/Disclaimer.tsx`, rendered on `/people`, `/opportunity`, `/venture/[id]/funding` |
 | Human-readable error handling | Done | `lib/errors.ts`, `lib/api.ts` |
-| Mobile-first responsive layout | Done | Verified at 390px width across the full journey — no horizontal overflow, bottom nav renders correctly. |
+| Responsive across mobile/tablet/desktop | Done | Verified at 390/820/1024/1440px across 12 representative pages (48 checks) — zero horizontal overflow, zero console/page errors. Shell width scales `max-w-xl → md:max-w-2xl → lg:max-w-4xl`; card grids (people matching, venture journey links, demo persona picker) go multi-column above mobile instead of just stretching. |
 | No API keys client-side | Done | `ANTHROPIC_API_KEY` / `SUPABASE_SERVICE_ROLE_KEY` are only read in server-only modules (`services/aiService.ts` `ClaudeAIService`, `lib/supabase/admin.ts`). |
 
 ## Explicitly out of scope (spec §5)
