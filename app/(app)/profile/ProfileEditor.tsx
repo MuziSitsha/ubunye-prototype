@@ -49,6 +49,7 @@ export function ProfileEditor({
   const [savingProfile, setSavingProfile] = useState(false);
   const [savingResources, setSavingResources] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [skillError, setSkillError] = useState<string | null>(null);
   const [signingOut, setSigningOut] = useState(false);
 
   async function saveProfile() {
@@ -66,6 +67,7 @@ export function ProfileEditor({
 
   async function addSkill() {
     if (!newSkill.trim()) return;
+    setSkillError(null);
     try {
       const result = await fetchJson<{ skill: { id: string; name: string } }>("/api/skills", {
         method: "POST",
@@ -76,8 +78,8 @@ export function ProfileEditor({
         { skillId: result.skill.id, name: result.skill.name, confidence: null, experienceLevel: "some_experience", source: "manual" },
       ]);
       setNewSkill("");
-    } catch {
-      // Field stays filled so the user can retry.
+    } catch (err) {
+      setSkillError(err instanceof ApiError ? err.message : "We couldn't add that skill. Please try again.");
     }
   }
 
@@ -171,6 +173,7 @@ export function ProfileEditor({
           </div>
           <Button size="sm" variant="ghost" onClick={addSkill}>Add</Button>
         </div>
+        {skillError && <p className="mt-3 rounded-xl bg-danger-light px-3.5 py-2.5 text-sm text-danger">{skillError}</p>}
       </Card>
 
       <Card>

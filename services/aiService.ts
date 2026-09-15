@@ -15,39 +15,139 @@ import type {
 
 // ---------------------------------------------------------------------------
 // Keyword map for MockAIService.interpretSkills — deterministic, not learned.
-// Every skill name here must match a row in supabase/seed.sql's skills table;
-// skillInterpreterService resolves by name (case-insensitive) and creates a new
-// skill row for anything a real user types that isn't already in the catalogue.
+// Most names here match a row already seeded in supabase/seed.sql; a handful
+// (welding, catering, web development, etc.) don't, and that's fine —
+// skillInterpreterService resolves by name (case-insensitive) and creates a
+// new skill row for anything that isn't already in the catalogue (see
+// migration 20260915120000_open_catalogue_inserts.sql — the RLS policy that
+// makes this actually work). Skills outside the original seeded set won't
+// have opportunity-matching relationships yet, but the user is never blocked
+// from recording what they can do.
 // ---------------------------------------------------------------------------
 const SKILL_KEYWORDS: Record<string, string[]> = {
-  "Appliance Repair": ["fridge", "refrigerator", "washing machine", "appliance", "stove", "oven repair"],
-  "Electrical Maintenance": ["electrical", "electrician", "wiring", "plugs", "circuit"],
-  "Fault Diagnosis": ["diagnos", "troubleshoot", "fixing things", "figure out what's wrong", "fault finding"],
-  Driving: ["drive", "driving", "driver", "licence", "license"],
-  Logistics: ["logistics", "delivery", "deliveries", "courier", "transport"],
-  Sales: ["sales", "selling", "sell ", "salesperson"],
-  "Customer Service": ["customer service", "customer relations", "dealing with customers", "front desk"],
-  "Social Media Marketing": ["social media", "instagram", "facebook page", "tiktok", "content creation", "marketing"],
-  Administration: ["admin", "administration", "paperwork", "organising", "organizing", "scheduling"],
-  Bookkeeping: ["bookkeeping", "invoicing", "accounts", "accounting", "budgets"],
-  Baking: ["bak", "cakes", "pastries", "bread"],
-  "Food Preparation": ["cooking", "cook ", "food prep", "meal prep", "kitchen work"],
-  "Food Safety": ["food safety", "food hygiene", "hygiene certificate"],
-  Cleaning: ["clean", "cleaning", "housekeeping", "domestic work"],
-  "Gardening & Landscaping": ["garden", "landscap", "lawn", "yard work"],
-  Childcare: ["childcare", "babysit", "child minding", "look after kids", "look after children"],
-  Tutoring: ["tutor", "teaching", "homework help", "extra lessons"],
-  "Sewing & Tailoring": ["sewing", "tailor", "alterations", "dressmaking"],
-  Carpentry: ["carpentry", "carpenter", "woodwork", "furniture making"],
-  Plumbing: ["plumb", "pipes", "geyser"],
-  "Construction Painting": ["painting walls", "house painting", "painter"],
-  "Mobile Phone Repair": ["phone repair", "screen repair", "cellphone repair", "smartphone repair"],
-  "Basic Computer Literacy": ["computer literate", "microsoft office", "typing", "excel", "computer skills"],
-  "Event Planning": ["event planning", "organising events", "organizing events", "weddings"],
-  Photography: ["photography", "photographer", "taking photos"],
-  "Hairdressing & Beauty": ["hair", "hairdress", "braiding", "nails", "makeup", "beauty"],
-  "Security Services": ["security guard", "patrol", "security services"],
-  "Agriculture & Farming": ["farming", "agricultur", "crops", "livestock", "vegetable garden"],
+  "Appliance Repair": [
+    "fridge", "refrigerator", "washing machine", "appliance", "stove", "oven repair",
+    "microwave", "dishwasher", "tumble dryer", "kettle repair", "repair machines",
+    "fix appliances", "white goods",
+  ],
+  "Electrical Maintenance": [
+    "electrical", "electrician", "wiring", "plugs", "circuit", "installing lights",
+    "fuse", "rewiring", "electric fault", "dstv install", "db board",
+  ],
+  "Fault Diagnosis": [
+    "diagnos", "troubleshoot", "fixing things", "figure out what's wrong", "fault finding",
+    "good with my hands", "handyman", "handywoman", "problem solving", "fixing stuff",
+  ],
+  Driving: [
+    "drive", "driving", "driver", "licence", "license", "code 10", "code 14",
+    "pdp", "taxi", "chauffeur", "uber driver", "bolt driver",
+  ],
+  Logistics: [
+    "logistics", "delivery", "deliveries", "courier", "transport", "dispatch",
+    "supply chain", "stock control", "distribution",
+  ],
+  Sales: [
+    "sales", "selling", "sell ", "salesperson", "sold ", "telesales", "door to door",
+    "negotiating deals", "closing deals", "upsell",
+  ],
+  "Customer Service": [
+    "customer service", "customer relations", "dealing with customers", "front desk",
+    "call centre", "call center", "receptionist", "helping customers", "client relations",
+  ],
+  "Social Media Marketing": [
+    "social media", "instagram", "facebook page", "tiktok", "content creation", "marketing",
+    "whatsapp business", "online marketing", "digital marketing", "promoting my business",
+    "growing followers",
+  ],
+  Administration: [
+    "admin", "administration", "paperwork", "organising", "organizing", "scheduling",
+    "filing", "data capturing", "data entry", "office work", "diary management",
+  ],
+  Bookkeeping: [
+    "bookkeeping", "invoicing", "accounts", "accounting", "budgets", "payroll",
+    "financial records", "keeping books", "reconciliations", "vat", "tax returns",
+  ],
+  Baking: ["bak", "cakes", "pastries", "bread", "cupcakes", "cake decorating", "confectionery"],
+  "Food Preparation": [
+    "cooking", "cook ", "food prep", "meal prep", "kitchen work", "chef", "catering",
+    "preparing meals", "recipe", "kitchen assistant",
+  ],
+  "Food Safety": ["food safety", "food hygiene", "hygiene certificate", "haccp"],
+  Cleaning: [
+    "clean", "cleaning", "housekeeping", "domestic work", "laundry", "ironing",
+    "washing clothes", "tidying", "sanitising", "deep cleaning",
+  ],
+  "Gardening & Landscaping": [
+    "garden", "landscap", "lawn", "yard work", "mowing", "hedge trimming", "irrigation",
+    "planting", "grass cutting",
+  ],
+  Childcare: [
+    "childcare", "babysit", "child minding", "look after kids", "look after children",
+    "nanny", "au pair", "creche", "early childhood",
+  ],
+  Tutoring: [
+    "tutor", "teaching", "homework help", "extra lessons", "teacher", "lecturing",
+    "mentoring students", "maths help", "matric",
+  ],
+  "Sewing & Tailoring": [
+    "sewing", "tailor", "alterations", "dressmaking", "sew clothes", "fashion design",
+    "making clothes", "pattern making",
+  ],
+  Carpentry: [
+    "carpentry", "carpenter", "woodwork", "furniture making", "cabinet making",
+    "building furniture", "joinery",
+  ],
+  Plumbing: [
+    "plumb", "pipes", "geyser", "blocked drain", "leaking tap", "toilet installation",
+    "drainage",
+  ],
+  "Construction Painting": [
+    "painting walls", "house painting", "painter", "spray painting", "wall paint",
+    "decorating houses",
+  ],
+  "Mobile Phone Repair": [
+    "phone repair", "screen repair", "cellphone repair", "smartphone repair",
+    "cracked screen", "battery replacement", "unlocking phones",
+  ],
+  "Basic Computer Literacy": [
+    "computer literate", "microsoft office", "typing", "excel", "computer skills",
+    "word processing", "email skills", "internet skills", "basic it",
+  ],
+  "Event Planning": [
+    "event planning", "organising events", "organizing events", "weddings", "party planning",
+    "function coordination", "decor setup",
+  ],
+  Photography: [
+    "photography", "photographer", "taking photos", "videography", "video editing",
+    "filming", "camera work",
+  ],
+  "Hairdressing & Beauty": [
+    "hair", "hairdress", "braiding", "nails", "makeup", "beauty", "barber", "barbering",
+    "weaves", "manicure", "pedicure", "lashes", "eyebrows", "spa",
+  ],
+  "Security Services": [
+    "security guard", "patrol", "security services", "cctv", "bouncer", "gate guard",
+    "armed response",
+  ],
+  "Agriculture & Farming": [
+    "farming", "agricultur", "crops", "livestock", "vegetable garden", "poultry",
+    "chickens", "cattle", "farm work", "harvesting",
+  ],
+  Welding: ["weld", "welding", "boilermaker", "fabrication", "metalwork"],
+  "Bricklaying & Masonry": ["bricklay", "masonry", "plastering", "tiling", "paving", "building walls"],
+  "Panel Beating & Spray Painting": ["panel beat", "spray paint car", "auto body", "car dent repair"],
+  "Mechanic & Vehicle Repair": ["mechanic", "car repair", "engine repair", "vehicle service", "tyre fitting", "auto electrical"],
+  Upholstery: ["upholstery", "reupholster", "furniture repair", "couch repair"],
+  Catering: ["catering", "caterer", "bulk cooking", "function catering"],
+  "Bartending & Waitering": ["bartend", "waiter", "waitress", "mixologist", "barista", "serving tables"],
+  "Warehouse & Forklift Operations": ["forklift", "warehouse", "picking and packing", "stock taking"],
+  "Caregiving & Home-Based Care": ["caregiver", "caregiving", "home-based care", "elderly care", "nursing assistant", "patient care"],
+  "Graphic Design": ["graphic design", "logo design", "canva", "flyer design", "branding design"],
+  "Web Development": ["web development", "coding", "programming", "website design", "app development", "software developer"],
+  "Writing & Content Creation": ["writing", "copywriting", "blogging", "content writer", "proofreading", "translation"],
+  "Music & Entertainment": ["dj", "music production", "singing", "musician", "sound engineer", "mc "],
+  "Fitness Training": ["fitness training", "personal trainer", "gym instructor", "yoga instructor", "coaching sport"],
+  "Retail & Cashier": ["cashier", "retail assistant", "till operator", "shop assistant", "merchandising"],
 };
 
 function interpretSkillsDeterministically(input: string): SkillInterpretation {

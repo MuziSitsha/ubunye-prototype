@@ -45,6 +45,7 @@ export default function SkillsPage() {
   async function handleAddManual(e: React.FormEvent) {
     e.preventDefault();
     if (!manualSkill.trim()) return;
+    setError(null);
     try {
       const result = await fetchJson<{ skill: { id: string; name: string } }>("/api/skills", {
         method: "POST",
@@ -55,8 +56,8 @@ export default function SkillsPage() {
         { skillId: result.skill.id, name: result.skill.name, confidence: null, experienceLevel: "some_experience", source: "manual" },
       ]);
       setManualSkill("");
-    } catch {
-      // Non-critical — the field just stays filled so the user can retry.
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "We couldn't add that skill. Please try again.");
     }
   }
 
