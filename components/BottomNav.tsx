@@ -22,16 +22,16 @@ export function BottomNav() {
         {ITEMS.map(({ href, label, icon: Icon }) => {
           const active = pathname === href || pathname.startsWith(`${href}/`);
           return (
-            <Link
-              key={href}
-              href={href}
-              className={clsx(
-                "flex flex-1 flex-col items-center gap-1 py-2.5 text-xs font-medium",
-                active ? "text-gold" : "text-ink-muted"
-              )}
-            >
-              <Icon active={active} />
-              {label}
+            <Link key={href} href={href} className="flex flex-1 flex-col items-center py-2">
+              <span
+                className={clsx(
+                  "flex flex-col items-center gap-0.5 rounded-2xl px-4 py-1.5 text-xs font-medium transition-colors",
+                  active ? "bg-gold-light text-gold-dark font-semibold" : "text-ink-muted"
+                )}
+              >
+                <Icon active={active} />
+                {label}
+              </span>
             </Link>
           );
         })}

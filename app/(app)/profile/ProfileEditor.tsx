@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/Badge";
 import { SelectField, TextField } from "@/components/ui/FormField";
 import { fetchJson, ApiError } from "@/lib/fetchJson";
 import { CITIES_BY_PROVINCE, PROVINCES } from "@/data/southAfricanLocations";
+import { SUGGESTED_SKILLS } from "@/data/suggestedSkills";
 import type { Availability, Profile, Situation, UserSkill } from "@/types/domain";
 
 const AVAILABILITY_OPTIONS: { value: Availability; label: string }[] = [
@@ -65,22 +66,32 @@ export function ProfileEditor({
     }
   }
 
-  async function addSkill() {
-    if (!newSkill.trim()) return;
+  async function addSkillByName(name: string) {
+    if (!name.trim()) return;
     setSkillError(null);
     try {
       const result = await fetchJson<{ skill: { id: string; name: string } }>("/api/skills", {
         method: "POST",
-        body: JSON.stringify({ name: newSkill }),
+        body: JSON.stringify({ name }),
       });
-      setSkills((prev) => [
-        ...prev,
-        { skillId: result.skill.id, name: result.skill.name, confidence: null, experienceLevel: "some_experience", source: "manual" },
-      ]);
-      setNewSkill("");
+      setSkills((prev) => {
+        // findOrCreateSkill matches case-insensitively, so re-adding a skill you
+        // already have (or a case variation of one) resolves to the same id.
+        // Without this guard that produced a second visual chip for the same
+        // skill — and since both chips shared an id, removing either one removed
+        // both (services/profileService.removeUserSkill deletes by skill_id).
+        if (prev.some((s) => s.skillId === result.skill.id)) return prev;
+        return [...prev, { skillId: result.skill.id, name: result.skill.name, confidence: null, experienceLevel: "some_experience", source: "manual" }];
+      });
     } catch (err) {
       setSkillError(err instanceof ApiError ? err.message : "We couldn't add that skill. Please try again.");
     }
+  }
+
+  async function addSkill() {
+    if (!newSkill.trim()) return;
+    await addSkillByName(newSkill);
+    setNewSkill("");
   }
 
   async function removeSkill(skillId: string) {
@@ -166,6 +177,25 @@ export function ProfileEditor({
               </button>
             </span>
           ))}
+        </div>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {SUGGESTED_SKILLS.map((name) => {
+            const already = skills.some((s) => s.name.toLowerCase() === name.toLowerCase());
+            return (
+              <button
+                key={name}
+                type="button"
+                disabled={already}
+                onClick={() => addSkillByName(name)}
+                className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
+                  already ? "border-gold bg-gold-light text-gold-dark" : "border-border bg-surface text-ink hover:bg-sand"
+                }`}
+              >
+                {already ? "✓ " : "+ "}
+                {name}
+              </button>
+            );
+          })}
         </div>
         <div className="mt-3 flex items-end gap-2">
           <div className="flex-1">

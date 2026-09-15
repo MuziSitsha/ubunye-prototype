@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { TextAreaField, TextField } from "@/components/ui/FormField";
 import { Badge } from "@/components/ui/Badge";
 import { fetchJson, ApiError } from "@/lib/fetchJson";
+import { SUGGESTED_SKILLS } from "@/data/suggestedSkills";
 import type { UserSkill } from "@/types/domain";
 
 // UBY-004 — Skills Conversation (spec §14)
@@ -42,23 +43,36 @@ export default function SkillsPage() {
     await fetchJson(`/api/skills/${skillId}`, { method: "DELETE" }).catch(() => {});
   }
 
-  async function handleAddManual(e: React.FormEvent) {
-    e.preventDefault();
-    if (!manualSkill.trim()) return;
+  async function addSkillByName(name: string) {
+    if (!name.trim()) return;
     setError(null);
     try {
       const result = await fetchJson<{ skill: { id: string; name: string } }>("/api/skills", {
         method: "POST",
-        body: JSON.stringify({ name: manualSkill }),
+        body: JSON.stringify({ name }),
       });
-      setSkills((prev) => [
-        ...prev,
-        { skillId: result.skill.id, name: result.skill.name, confidence: null, experienceLevel: "some_experience", source: "manual" },
-      ]);
-      setManualSkill("");
+      setSkills((prev) => {
+        // findOrCreateSkill matches case-insensitively, so re-adding a skill
+        // (or tapping a suggested chip for one already picked up from the
+        // description) resolves to the same id. Without this guard that drew a
+        // second chip for the same skill — and since both chips shared an id,
+        // removing either one removed both (delete is by skill_id).
+        if (prev.some((s) => s.skillId === result.skill.id)) return prev;
+        return [
+          ...prev,
+          { skillId: result.skill.id, name: result.skill.name, confidence: null, experienceLevel: "some_experience", source: "manual" },
+        ];
+      });
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "We couldn't add that skill. Please try again.");
     }
+  }
+
+  async function handleAddManual(e: React.FormEvent) {
+    e.preventDefault();
+    if (!manualSkill.trim()) return;
+    await addSkillByName(manualSkill);
+    setManualSkill("");
   }
 
   async function handleConfirm() {
@@ -136,6 +150,31 @@ export default function SkillsPage() {
                 ))}
               </ul>
             )}
+
+            <div>
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-ink-muted">Common skills</h3>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {SUGGESTED_SKILLS.map((name) => {
+                  const already = skills.some((s) => s.name.toLowerCase() === name.toLowerCase());
+                  return (
+                    <button
+                      key={name}
+                      type="button"
+                      disabled={already}
+                      onClick={() => addSkillByName(name)}
+                      className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
+                        already
+                          ? "border-gold bg-gold-light text-gold-dark"
+                          : "border-border bg-surface text-ink hover:bg-sand"
+                      }`}
+                    >
+                      {already ? "✓ " : "+ "}
+                      {name}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
             <form onSubmit={handleAddManual} className="flex items-end gap-2">
               <div className="flex-1">

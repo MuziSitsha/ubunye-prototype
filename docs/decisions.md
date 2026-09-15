@@ -250,3 +250,19 @@ project's **Authentication → Sign In / Providers → Email → "Confirm email"
 toggle should be turned off, matching local dev exactly. This needs to be
 done once, by hand, in the Supabase dashboard — there is no migration for
 GoTrue configuration.
+
+## D14 — De-duplicate by skill id when adding a skill client-side
+
+`findOrCreateSkill` matches case-insensitively, so typing a skill you already
+have — or a case variation of one ("cooking" vs "Cooking"), or tapping a
+suggested-skill chip (added alongside this fix, spec §14's "confirm/edit/add")
+for something already picked up from the free-text description — resolves to
+the *same* `skill_id`. Both add-skill call sites (`onboarding/skills`,
+`ProfileEditor`) used to append unconditionally, so this produced a second
+visual chip for the same skill. Because `removeUserSkill` deletes by
+`skill_id`, and both chips shared one, removing *either* chip removed *both*
+— reported as "I add 3 skills and remove one and they all remove." The
+skills themselves were never actually duplicated in the database (the DB
+call is an upsert on `(user_id, skill_id)`); this was purely a client-state
+bug. Fixed by checking `prev.some(s => s.skillId === result.skill.id)`
+before appending, in both `addSkillByName` helpers.
